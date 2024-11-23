@@ -1,27 +1,9 @@
-# gestor_w10
-
-## estructura:
----
-proyecto/
-├── app/
-│   ├── __init__.py
-│   ├── routes/
-│   │   ├── __init__.py
-│   │   ├── files.py  # Manejo de archivos
-│   │   └── auth.py   # Registro y login
-│   ├── static/
-│   ├── templates/
-│   ├── utils.py      # Funciones auxiliares
-│   └── models.py     # Modelos y lógica de datos
-├── config.py         # Configuración
-├── run.py            # Punto de entrada
-└── requirements.txt  # Dependencias
-
 # instrucciones
 
 ## 1. Verifica la política actual en (consola)(powerShell) con:
+
 Get-ExecutionPolicy
----
+
 Probablemente obtendrás algo como Restricted, lo que impide la ejecución de scripts.
 
 ## 2. Cambia la política de ejecución (consola)(powerShell)(como Admin) con
