@@ -1,0 +1,48 @@
+{% if users %}
+  <table>
+    <thead>
+      <tr>
+        <th>Usuario</th>
+        <th>Nombre</th>
+        <th>Rol</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+        <tr>
+          <td>{{ user.usuario }}</td>
+          <td>{{ user.nombres }} {{ user.apellidos }}</td>
+          <td>{{ user.rol }}</td>
+          <td>{{ user.estado_usuario }}</td>
+          <td>
+            {% if session['rol'] in ['superadmin', 'admin'] %}
+              <a href="{{ url_for('auth.manage_user', user_id=user.id) }}">Editar</a>
+            {% endif %}
+            {% if session['rol'] == 'superadmin' %}
+              <form action="{{ url_for('auth.delete_user_route', user_id=user.id) }}" method="POST">
+                <button type="submit">Eliminar</button>
+              </form>
+            {% endif %}
+            {% if session['rol'] in ['superadmin', 'admin'] %}
+              <form action="{{ url_for('auth.toggle_user_status_route', user_id=user.id) }}" method="POST">
+                <select name="estado_usuario">
+                  <option value="activo" {% if user.estado_usuario == 'activo' %}selected{% endif %}>Activo</option>
+                  <option value="inactivo" {% if user.estado_usuario == 'inactivo' %}selected{% endif %}>Inactivo</option>
+                  <option value="suspendido" {% if user.estado_usuario == 'suspendido' %}selected{% endif %}>Suspendido</option>
+                  <option value="baneado" {% if user.estado_usuario == 'baneado' %}selected{% endif %}>Baneado</option>
+                  <option value="sancionado" {% if user.estado_usuario == 'sancionado' %}selected{% endif %}>Sancionado</option>
+                  <option value="vacaciones" {% if user.estado_usuario == 'vacaciones' %}selected{% endif %}>Vacaciones</option>
+                  <option value="vacio" {% if user.estado_usuario == 'vacio' %}selected{% endif %}>Vacío</option>
+                  <option value="retirado" {% if user.estado_usuario == 'retirado' %}selected{% endif %}>Retirado</option>
+                </select>
+                <button type="submit">Actualizar Estado</button>
+              </form>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}

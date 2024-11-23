@@ -7,6 +7,18 @@
 </head>
 <body>
     <h1>Iniciar Sesión</h1>
+
+    <!-- Mostrar mensajes flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
     <form method="POST">
         <label for="usuario">Usuario:</label>
         <input type="text" id="usuario" name="usuario" required>
@@ -16,6 +28,5 @@
         <br>
         <button type="submit">Iniciar Sesión</button>
     </form>
-    <p>¿No tienes una cuenta? <a href="{{ url_for('auth.register') }}">Regístrate aquí</a></p>
 </body>
 </html>

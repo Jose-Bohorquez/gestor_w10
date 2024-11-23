@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Inicio</title>
+    <title>Inicio</title>
 </head>
 <body>
-    <h1>¡Bienvenido al Creador de Archivos Manuales!</h1>
-    <p>
-        Haz clic en <a href="/login">Iniciar Sesión</a> para entrar al sistema o
-        explora <a href="/files">Gestión de Archivos</a> (aún en desarrollo).
-    </p>
+    <h1>Bienvenido</h1>
+    {% if usuario %}
+        <p>Hola, {{ usuario }}. <a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a></p>
+    {% else %}
+        <p><a href="{{ url_for('auth.login') }}">Iniciar Sesión</a> o <a href="{{ url_for('auth.register') }}">Registrarse</a></p>
+    {% endif %}
 </body>
 </html>
