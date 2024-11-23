@@ -1,0 +1,15 @@
+gestor_w10/
+├── app/
+│   ├── __init__.py         # Inicializa la app Flask y registra blueprints
+│   ├── routes/
+│   │   ├── __init__.py     # Inicializa el módulo de rutas
+│   │   ├── files.py        # Rutas para la gestión de archivos
+│   │   └── auth.py         # Rutas para autenticación
+│   ├── static/             # Archivos estáticos (CSS, JS, imágenes)
+│   ├── templates/          # Plantillas HTML
+│   ├── utils.py            # Funciones de utilidad
+│   └── models.py           # Modelos de datos
+├── venv/                   # Entorno virtual (creado previamente)
+├── config.py               # Configuraciones del proyecto
+├── run.py                  # Archivo para ejecutar la aplicación
+└── requirements.txt        # Dependencias del proyecto
