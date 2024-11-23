@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro</title>
+    <title>Registro de Usuario</title>
 </head>
 <body>
     <h1>Registro de Usuario</h1>
     <form method="POST">
         <label for="tipo_de_documento">Tipo de Documento:</label>
-        <select name="tipo_de_documento" id="tipo_de_documento" required>
-            <option value="cc">Cédula de Ciudadanía</option>
-            <option value="ti">Tarjeta de Identidad</option>
-            <option value="ce">Cédula de Extranjería</option>
-            <option value="pep">Permiso Especial de Permanencia</option>
+        <select id="tipo_de_documento" name="tipo_de_documento" required>
+            <option value="ti">TI</option>
+            <option value="cc">CC</option>
+            <option value="ce">CE</option>
+            <option value="pep">PEP</option>
         </select>
         <br>
         <label for="nuip">Número de Documento:</label>
@@ -40,7 +40,7 @@
         <label for="telefono">Teléfono:</label>
         <input type="text" id="telefono" name="telefono" required>
         <br>
-        <button type="submit">Registrar</button>
+        <button type="submit">Registrarse</button>
     </form>
 </body>
 </html>

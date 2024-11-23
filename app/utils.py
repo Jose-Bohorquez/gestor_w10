@@ -1,6 +1,8 @@
 # Aquí se colocarán funciones de utilidad para el proyecto
 import pandas as pd
+import openpyxl
 from datetime import datetime
+
 
 def load_users(file_path='users.xlsx'):
     """Carga los usuarios desde un archivo Excel."""
@@ -15,19 +17,40 @@ def validate_user(username, password, file_path='users.xlsx'):
     user = users[(users['usuario'] == username) & (users['contraseña'] == password)]
     return not user.empty
 
+def register_user(data):
+    # Ruta al archivo Excel
+    excel_path = 'users.xlsx'
 
-def register_user(data, file_path='users.xlsx'):
-    """Registra un nuevo usuario en el archivo Excel."""
-    users = load_users(file_path)
+    try:
+        # Abre el archivo Excel o crea uno nuevo si no existe
+        try:
+            workbook = openpyxl.load_workbook(excel_path)
+            sheet = workbook.active
+        except FileNotFoundError:
+            workbook = openpyxl.Workbook()
+            sheet = workbook.active
+            # Escribe los encabezados
+            sheet.append([
+                'Tipo de Documento', 'NUIP', 'Nombres', 'Apellidos',
+                'Fecha de Nacimiento', 'Correo Electrónico', 'Usuario',
+                'Contraseña', 'Teléfono', 'Fecha y Hora de Registro'
+            ])
 
-    # Validar que no exista un usuario con el mismo 'usuario' o 'nuip'
-    if not users[(users['usuario'] == data['usuario']) | (users['nuip'] == data['nuip'])].empty:
-        raise ValueError("El usuario o número de documento ya existe.")
+        # Agrega los datos del usuario
+        sheet.append([
+            data['tipo_de_documento'],
+            data['nuip'],
+            data['nombres'],
+            data['apellidos'],
+            data['fecha_nacimiento'],
+            data['correo'],
+            data['usuario'],
+            data['contraseña'],  # En producción, encripta esta información
+            data['telefono'],
+            datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Fecha y hora actual
+        ])
 
-    # Añadir fecha y hora de registro
-    data['fecha_hora_registro'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-    # Convertir a DataFrame y guardar
-    new_user = pd.DataFrame([data])
-    updated_users = pd.concat([users, new_user], ignore_index=True)
-    updated_users.to_excel(file_path, index=False)
+        # Guarda el archivo Excel
+        workbook.save(excel_path)
+    except Exception as e:
+        raise Exception(f"Error al registrar usuario: {e}")
